@@ -1,0 +1,208 @@
+1
+CHECK QUERY PERFORMANCE 
+
+EXPLAIN FORMAT = JSON SELECT * FROM employees;
+
+EXPLAIN FORMAT = JSON SELECT avg(SALARY) FROM employees;
+
+2
+   .indexing..
+
+SHOW INDEXES FROM employees;
+
+SHOW INDEXES FROM dep;
+
+CREATE INDEX idx_dept_deptno ON DEPT(deptno DESC);
+
+DROP INDEX idx_dept_deptno ON DEPT;
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+composite
+
+CREATE INDEX idx_dept_name_loc ON DEPT(dname,loc); 
+
+DROP INDEX idx_dept_name_loc ON DEPT;
+
+@@@@@@@@@@@@@@@@@@@@@@@
+CREATE UNIQUE INDEX idx_dept_name_loc ON DEPT(dname,loc); 
+
+CREATE UNIQUE INDEX idx_dept_deptno ON DEPT(deptno DESC);
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+constraints
+
+1
+
+default c
+
+CREATE TABLE cons1_t
+(
+  city VARCHAR(50),
+  state VARCHAR(50),
+  COUNTRY VARCHAR(50) DEFAULT "INDIA"
+);
+
+INSERT INTO cons1_t
+VALUES
+('nasik','maharashtra','india');
+
+INSERT INTO cons1_t
+(city,state)
+VALUES
+('nagpur','maharashtra'),
+('mumbai','maharashtra');
+
+ALTER TABLE cons1_t
+ALTER COUNTRY DROP DEFAULT;
+
+
+set//
+
+ALTER TABLE cons1_t
+ALTER COUNTRY SET DEFAULT "INDIA";
+
+
+INSERT INTO cons1_t
+(city,state)
+VALUES
+('LUCKNOW','maharashtra'),
+('PUNERI','maharashtra');
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+NOT NULL//
+
+CREATE TABLE cons2_emp
+(
+  id INT NOT NULL,
+  ename VARCHAR(50) NOT NULL,
+  COUNTRY VARCHAR(50) DEFAULT "INDIA"
+);
+
+INSERT INTO cons2_emp
+VALUES(1,'suraj','india');
+
+INSERT INTO cons2_emp
+(id,ename)
+VALUES(2,'sagar'),
+(3,'kiran'),
+(4,'sarika'),
+(5,'swati'),
+(6,'krishna');
+
+
+UPDATE cons2_emp
+SET id = NULL,
+WHERE name = 'suraj'; // not ok as null not allowed
+
+
+
+remove c
+
+ALTER TABLE cons2_emp 
+MODIFY column id INT;
+
+//set on colm
+ALTER TABLE cons2_emp
+MODIFY column id INT NOT NULL;
+ 
+4 UNIQUE //
+
+CREATE TABLE cons2_cust
+(
+  id INT UNIQUE,
+  ename VARCHAR(50) NOT NULL UNIQUE,
+  COUNTRY VARCHAR(50) DEFAULT "INDIA"
+);
+
+CREATE TABLE cons3_std
+(
+  roll_no INT UNIQUE,
+  name VARCHAR(50) NOT NULL UNIQUE,
+ marks FLOAT,
+  COUNTRY VARCHAR(50) DEFAULT "INDIA",
+CONSTRAINT std_rool_mark UNIQUE(roll_no,marks)
+);
+
+INSERT INTO cons3_std
+VALUES
+(1,'sagar',80.90,'india');
+
+INSERT INTO cons3_std
+(roll_no,name)
+VALUES
+(5,'swati'),
+(6,'krishna');
+
+
+
+(1,'sagar'),
+(1,'sagar'),
+
+
+---------------
+
+to remove
+
+ALTER TABLE cons3_std
+DROP CONSTRAINT std_rool_mark UNIQUE;
+
+ALTER TABLE cons3_std
+ADD CONSTRAINT std_cty UNIQUE(COUNTRY);
+
+#######################################
+
+4 check
+
+CREATE TABLE cons4_emp1
+(
+  id INT NOT NULL,
+  ename VARCHAR(50) NOT NULL,
+salary float,
+  COUNTRY VARCHAR(50) DEFAULT "INDIA"
+CONSTRAINT ck_emp_salary
+CHECK(salary>0),
+);
+
+INSERT INTO cons2_emp1
+VALUES(1,'suraj',100000,'india');
+
+INSERT INTO cons2_emp
+(id,ename)
+VALUES(2,'sagar'),
+(3,'kiran'),
+(4,'sarika'),
+(5,'swati'),
+(6,'krishna');
+
+
+UPDATE cons2_emp1
+SET id = NULL,
+WHERE name = 'suraj'; // not ok as null not allowed
+
+
+
+remove c
+
+ALTER TABLE cons2_emp1 
+MODIFY column id INT;
+
+
+TABLES cons2_emp
+DROP CHECK ck_emp_salary;
+
+
+//SET CHECK
+
+ALTER TABLE cons_emp
+ADD CONSTRAINT ck_emp_salary
+check(salary between 4000 and 8000)
+
+
+//////////////////////////////////////////
+primary key and foreign key
+
+

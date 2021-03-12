@@ -1,0 +1,48 @@
+Wrtite Update and Delete queries to do following.
+Note : Use Classwork database
+1.update job as Software Devloper whose name is SMITH
+
+show databases;
+use classwork;
+show tables;
+SELECT * FROM EMP;
+
+UPDATE EMP
+SET job = 'Software Devloper'
+WHERE ename = 'SMITH';
+2.update sal and comm whose empno is 7788.
+
+ 7788 | SCOTT  | ANALYST           | 7566 | 1982-12-09 | 3000.00 |  
+
+
+UPDATE EMP
+SET sal = 5000,comm = 500
+WHERE empno = 7788;
+
+3.update anaul salary of all employee
+
+UPDATE EMP
+SET sal = sal*12;
+
+
+4.update comm to 100 whose commis null.
+UPDATE EMP
+SET comm = 100 
+WHERE comm IS NULL;
+
+5.delete department whose deptno is 40.
+DELETE 
+FROM EMP
+WHERE empno = 7369; 
+DELETE from DEPT where deptno=30;
+
+6.delete all employees who is hired on '1982-01-23'
+DELETE FROM EMP 
+WHERE hire ='1982-01-23';
+
+7.delete all employees whose deptno is 10 .
+
+DELETE FROM EMP
+WHERE deptno = 10;
+
+

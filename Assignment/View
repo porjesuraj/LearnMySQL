@@ -1,0 +1,46 @@
+VIEW
+______________________________________
+1
+CREATE VIEW view1
+AS (SELECT * FROM EMP);
+SHOW FULL TABLES;
+SELECT * FROM view1;
+DESC view1;
+
+CREATE VIEW view2
+AS(SELECT empno,ename from EMP);
+
+DESC view2;
+
+show full tables;
+
+report gen in real time use of view
+
+INSERT INTO view2
+VALUES(8000,'sames'),
+   (9000,'james');
+
+CREATE VIEW view3
+AS(SELECT empno,job,sal*comm "total salary"
+   from EMP 
+WHERE sal>2000);
+
+create VIEW view4
+AS(SELECT e.ename,d.dname 
+FROM EMP e INNER JOIN DEPT d 
+ON e.deptno = d.deptno);
+
+DROP VIEW view1,view2;
+
+ create TEMPORARY TABLE T1
+    -> LIKE EMP;
+SHOW FULL TABLES;
+
+CREATE TEMPORARY TABLE T2
+AS(SELECT * FROM EMP);
+
+
+
+
+
+

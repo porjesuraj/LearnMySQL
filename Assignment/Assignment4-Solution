@@ -1,0 +1,66 @@
+Grant and Revoke.
+Create user by name sunbeam in root login
+
+SELECT  USER FROM mysql.user;
+SELECT USER() FROM DUAL;
+SELECT DATABASE() FROM DUAL;
++------------+
+| DATABASE() |
++------------+
+| NULL       |
++------------+
+
+
+SELECT VERSION() FROM DUAL;
++-----------+
+| VERSION() |
++-----------+
+| 8.0.17    |
++-----------+
+
+CREATE USER 'sunbeam'@'localhost'
+IDENTIFIED BY 'sunbeam';
+
+SHOW GRANT FOR 'sunbeam'@'localhost';
+Note : To solve below queries use ‘classwork’ database.
+1. Give UPDATE privilages on BOOKS table to sunbeam.
+
+
+GRANT UPDATE ON classwork.BOOKS TO 'sunbeam'@'localhost';
+FLUSH PRIVILEGES;
+
+2. Give sunbeam the right to SELECT the data from
+BOOKS,EMP,DEPT tables.
+
+GRANT SELECT ON classwork.EMP TO 'sunbeam'@'localhost'; 
+GRANT SELECT ON classwork.DEPT TO 'sunbeam'@'localhost';
+GRANT SELECT ON classwork.BOOKS TO 'sunbeam'@'localhost';
+
+
+3. Give INSERT privilage on EMP table to sunbeam
+
+GRANT INSERT ON classwork.EMP TO 'sunbeam'@'localhost';
+
+4. Give DELETE privileges on DEPT table to sunbeam
+REVOKE ALL ON classwork.DEPT FROM 'sunbeam'@'localhost';
+
+
+5. Take the UPDATE privilege on BOOKS table away from
+sunbeam.
+
+REVOKE UPDATE ON classwork.BOOKS FROM 'sunbeam'@'localhost';
+
+6. Take the INSERT privilege on EMP table away from sunbeam.
+
+REVOKE INSERT ON classwork.EMP FROM 'sunbeam'@'localhost';
+
+7. Take the DELETE privilege on DEPT table away from sunbeam.
+
+REVOKE DELETE ON classwork.DEPT FROM 'sunbeam'@'localhost';
+8. Take the SELECT privilege on BOOKS,EMP,DEPT tables away
+from sunbeam.
+
+REVOKE SELECT ON classwork.BOOKS FROM 'sunbeam'@'localhost';
+REVOKE SELECT ON classwork.EMP FROM 'sunbeam'@'localhost';
+REVOKE SELECT ON classwork.DEPT FROM 'sunbeam'@'localhost';
+

@@ -1,0 +1,92 @@
+1. Create 'dac' user with password 'dac'.
+mysql -u root -p
+SELECT USER() FROM DUAL;
+CURRENT_USER();
+
+mysql> CREATE USER 'dac'@'localhost'
+    -> IDENTIFIED BY
+    -> 'dac';
+SHOW GRANTS FOR 'dac'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'dac'@'localhost'; 
+FLUSH PRIVILEGES;
+
+2. Create 'spj' database & grant all permissions to 'dac' user.
+
+SHOW GRANTS FOR 'dac'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'dac'@'localhost'; 
+FLUSH PRIVILEGES;
+ mysql -u dac -p
+SELECT USER();
+SHOW DATABASES;
+CREATE DATABASE db_dac;
+CREATE DATABASE spj;
+
+
+
+
+3. Create tables mentioned in file spj_table_for_SQL_Excercise.txt (by 'dac' login).
+USE spj;
+
+
+CREATE TABLE S
+(
+`S#` CHAR(5),
+Sname CHAR(20),
+Status INT(20),
+City CHAR(15)
+);
+
+CREATE TABLE dacfile
+(
+id INT,
+name VARCHAR(50),
+author VARCHAR(50),
+subject VARCHAR(50),
+price FLOAT
+);
+CREATE TABLE P
+(`P#` CHAR(6),
+Pname CHAR(20),
+Color CHAR(6),
+Weight SMALLINT,
+CITY CHAR(15)
+);
+
+CREATE TABLE J
+(`J#` CHAR(4),
+Jname CHAR(10),
+City CHAR(15)
+); 
+
+CREATE TABLE sp
+(`S#` CHAR(4),
+`P#` CHAR(4),
+`J#` CHAR(4),
+QTY INT);
+
+4. Create 'classwork' database & grant all permissions to 'dac' user. Import classwork-db.sql.
+ CREATE DATABASE classwork;
+
+GRANT ALL PRIVILEGES ON *.* TO 'dac@localhost';
+use classwork;
+
+mysql> source /home/sunbeam/classwork_data/dbt/Day 2/classwork-db.sql;
+
+
+5. Create 'hr' database & grant all permissions to 'dac' user. Import hr-db.sql.
+CREATE DATABASE hr;
+GRANT ALL PRIVILEGES ON *.* TO 'dac@localhost';
+use hr;
+source /home/sunbeam/classwork_data/dbt/Day 2/hr-db.sql;
+
+
+6. Create 'sales' database & grant all permissions to 'dac' user. Import sales-db.sql.
+CREATE DATABASE sales;
+use sales;
+source /home/sunbeam/classwork_data/dbt/Day 2/sales-db.sql;
+
+7. Create 'northwind' database & grant all permissions to 'dac' user. Import northwind-db.sql.
+ CREATE DATABASE northwind;
+use northwind;
+source /home/sunbeam/classwork_data/dbt/Day 2/sales-db.sql;
+

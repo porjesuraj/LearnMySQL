@@ -1,0 +1,256 @@
+---MYSQL PROGRAMMING [PSM]
+
+
+1
+DELIMITER $$
+CREATE PROCEDURE sp_emp_prog1_()
+BEGIN
+
+INSERT INTO EMP
+(empno,job)
+VALUES(9999,"enjoying life aur option bhi kya hae");
+END $$
+DELIMITER ;
+
+SHOW PROCEDURE STATUS LIKE 'sp%';
+ select * from EMP;
+CALL sp_emp_prog1_();
+select * from EMP;
+DELETE FROM EMP
+WHERE empid = 9999;
+
+select * from EMP;
+
+DROP PROCEDURE sp_emp_prog1_;
+
+2
+SHOW VARIABLES;
+
+3
+DELIMITER $$
+CREATE PROCEDURE sp_prog2()
+BEGIN
+DECLARE name INT DEFAULT "SURAJ";
+END$$;
+DELIMITER ;
+4
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_prog3()
+BEGIN 
+DECLARE empno INT;
+DECLARE ename VARCHAR(50);
+SET ename = "SURAJ porje";
+END $$;
+DELIMITER ;
+
+
+5
+specify month and find no of days in it
+
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_prog4()
+BEGIN 
+DECLARE month INT DEFAULT 2;
+DECLARE days INT DEFAULT 1;
+IF (month = 1 OR month = 3 OR month = 5 OR month = 7 OR month = 8 OR month = 10 OR month = 12) 
+THEN 
+SET days = 31;
+ELSEIF (month = 4 OR month = 6 OR month = 9 OR month = 11)
+THEN
+SET days = 30;
+ELSE 
+SET days = 28;
+ENDIF
+END $$
+DELIMITER ;
+
+
+
+CREATE TABLE result_1
+(month INTEGER,days INTEGER);
+
+INSERT INTO result_1
+VALUES
+(1,31);
+
+4
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_insert_emp( )
+BEGIN
+INSERT INTO EMP (empno, ename, sal, deptno )
+VALUES( 7935,'ABC',5000, 30);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_delete_emp( )
+BEGIN
+DELETE FROM emp WHERE empno=7935;
+END $$
+DELIMITER ;
+
+5__________________________________
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_prog5()
+BEGIN
+DECLARE num1 INTEGER; 
+DECLARE num2 INTEGER;
+DECLARE num3 INTEGER; 
+SET num1 = 10;
+SET num2 = 20;
+SET num3 = 30;
+INSERT INTO result_1 VALUES(num1,num2);
+END $$
+DELIMITER ;
+
+6
+Check whether year is leap year or not 
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_prog6()
+BEGIN
+DECLARE year INTEGER DEFAULT 2000; 
+DECLARE day INTEGER;
+ IF year mod 4 = 0
+THEN
+SET day = 366;
+ELSE
+SET day = 365;
+END IF;
+INSERT INTO result_1 VALUES (day,day);
+END $$
+DELIMITER ;
+
+7
+
+CASE case_value
+WHEN when_value THEN statement_list
+[WHEN when_value THEN statement_list]
+...
+[ELSE statement_list]
+END CASE
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_prog5;
+CREATE PROCEDURE sp_prog5;
+DECLARE month INTEGER DEFAULT 4;
+DECLARE day INTEGER DEFAULT 0;
+CASE month
+WHEN 1 THEN SET day = 31;
+WHEN 2 THEN SET day = 28;
+WHEN 3 THEN SET day = 31;
+WHEN 4 THEN SET day = 30;
+ELSE SET days = 0;
+END CASE;
+INSERT INTO result_1 VALUES(month,day);
+END $$
+DELIMITER ;
+
+
+7
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_proc6;
+CREATE PROCEDURE sp_proc6( )
+BEGIN
+DECLARE count INTEGER DEFAULT 1;
+DECLARE res INTEGER DEFAULT 0;
+WHILE count <= 10
+DO
+SET res = res + count;
+SET count = count + 1;
+END WHILE;
+INSERT INTO result VALUES( res );
+END $$
+DELIMITER ;
+
+8
+REPEAT
+statement_list
+UNTIL search_condition
+END REPEAT
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_proc6;
+CREATE PROCEDURE sp_proc6()
+BEGIN 
+DECLARE count INTEGER DEFAULT 1;
+DECLARE res INTEGER DEFAULT 0;
+REPEAT
+SET res = count + res;
+SET count = count+1;
+UNTIL count > 10;
+END REPEAT;
+INSERT INTO result VALUES(res);
+END$$ 
+DELIMITER ;
+
+
+label: LOOP
+statement_list
+END LOOP label;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_proc7;
+CREATE PROCEDURE sp_proc7()
+BEGIN 
+DECLARE count INTEGER DEFAULT 0;
+DECLARE res INTEGER DEFAULT 0;
+add:LOOP
+SET res=count+res;
+SET count=count+1;
+IF count > 10 THEN
+LEAVE add;
+END IF;
+END LOOP add;
+INSERT INTO result VALUES(res);
+END$$ 
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_proc7;
+CREATE PROCEDURE sp_proc7( )
+BEGIN
+DECLARE count INTEGER DEFAULT 0;
+DECLARE res INTEGER DEFAULT 0;
+label:LOOP
+SET res = res + count;
+SET count = count + 1;
+IF count = 10 THEN
+LEAVE label;
+END IF;
+END LOOP label;
+INSERT INTO result VALUES( res );
+END $$
+DELIMITER ;
+
+
+9
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_insert_emp;
+CREATE PROCEDURE sp_insert_emp( IN empno INTEGER, IN ename VARCHAR(50), IN
+sal FLOAT, IN deptno INTEGER)
+BEGIN
+INSERT INTO EMP
+(empno, ename, sal, deptno)
+VALUES(empno, ename, sal, deptno);
+END $$
+DELIMITER ;
+
+
+
+
+
+

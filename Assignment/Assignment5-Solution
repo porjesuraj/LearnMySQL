@@ -1,0 +1,665 @@
+assignment 5 
+
+Sunbeam Institute Of Technology,Pune & Karad
+DATABASE TECHNOLOGY
+Write the queries to do the following :-
+Note : To solve below queries use “ hr ” database
+1. Display employees where the first name or last name starts
+with S.
+-> 
+mysql -u dac -p
+use hr;
+show tables;
+
+select * from employees;
+
+select *from employees
+where FIRST_NAME LIKE 'S%' OR LAST_NAME LIKE 'S%';
+
+
+2. Display first name and last name after converting the first letter
+of each name to upper case and the rest to lower case.
+
+
+
+SELECT concat(UPPER(substr(first_name,1,1)),
+         LOWER(substr(first_name,2))) AS "FIRST NAME",
+concat(UPPER(substr(last_name,1,1)),
+         LOWER(substr(last_name,2))) AS "LAST NAME"
+FROM employees;
+
+
+3. Display the first word in job title.
+
+  SELECT substr(JOB_TITLE,1,1) AS F_WORD 
+FROM jobs;
+
+
+4. Display the length of first name for employees where last name
+contain character ‘b’ after 3rd position.
+
+FIRST_NAME  | LAST_NAME
+
+SELECT FIRST_NAME,LAST_NAME,LENGTH(FIRST_NAME) from employees
+WHERE LAST_NAME LIKE '%b___';
+
+
+->
+SELECT LENGTH(FIRST_NAME),FIRST_NAME,LAST_NAME
+ FROM employees
+WHERE LAST_NAME LIKE '___b%';
+
+
+5. Display first name in upper case and email address in lower
+case for employees where the first name and email address are
+same irrespective of the case.
+
+ FIRST_NAME EMAIL
+
+SELECT UPPER(FIRST_NAME),LOWER(EMAIL) FROM employees
+WHERE FIRST_NAME=EMAIL;
+
+SELECT UPPER(FIRST_NAME),LOWER(EMAIL) FROM employees
+WHERE LOWER(FIRST_NAME) = LOWER(EMAIL);
+
+
+
+6. Display first name, salary, and round the salary to  thousands.
+
+-> SELECT FIRST_NAME,SALARY,ROUND(SALARY,4) final_salary
+ FROM employees;
+
+
+7. Display manager ID and number of employees managed by the
+manager.
+
+SELECT MANAGER_ID,COUNT( EMPLOYEE_ID ) FROM employees
+GROUP BY MANAGER_ID;
+
+
+8. Display employee ID and the date on which he ended his
+previous job.
+
+SELECT EMPLOYEE_ID,HIRE_DATE ended_previous_job FROM employees;
+
+
+9. Display the country ID and number of cities we have in the
+country.
+
+
+Select country_id,count(country_id) "Cities in country" from locations group by country_id;
+
+
+
+10. Display average salary of employees in each department who
+have commission percentage
+
+SELECT DEPARTMENT_ID,AVG(SALARY) FROM employees
+WHERE COMMISSION_PCT > 0
+GROUP BY DEPARTMENT_ID;
+
+
+
+11. Display job ID, number of employees, sum of salary, and
+difference between highest salary and lowest salary of the
+employees of the job.
+->
+SELECT JOB_ID,count(EMPLOYEE_ID),SUM(SALARY),
+MAX(SALARY) - MIN(SALARY) diff_of_salaries 
+FROM employees
+group by JOB_ID;
+
+
+12. Display job ID for jobs with average salary more than 10000.
+
+SELECT JOB_ID,AVG(SALARY) FROM employees
+GROUP BY JOB_ID
+HAVING AVG(SALARY) > 10000;
+
+13. Display years in which more than 10 employees joined.
+->
+SELECT year(HIRE_DATE) YR FROM employees
+GROUP BY YR
+HAVING COUNT(EMPLOYEE_ID) > 10;
+
+Select substr(HIRE_DATE,1,4) "Year" from employees group by substr(HIRE_DATE,1,4) having count(EMPLOYEE_ID)>10;
+
+
+
+14. Display departments in which more than five employees have
+commission percentage.
+SELECT DEPARTMENT_ID,COUNT(EMPLOYEE_ID) FROM employees
+WHERE COMMISSION_PCT > 0
+GROUP BY DEPARTMENT_ID
+HAVING COUNT(EMPLOYEE_ID) > 5;
+
+
+15. Display employee ID for employees who did more than one job
+in the past.
+'
+
+select employee_id from job_history group by employee_id having count(employee_id)>1;
+--
+
+
+16. Display job ID of jobs that were done by more than 3
+employees for more than 100 days.
+
+SELECT 
+JOB_ID,DATEDIFF('START_DATE','END_DATE')
+FROM 
+job_history
+WHERE EMPLOYEE_ID > 3
+HAVING DATEDIFF('START_DATE','END_DATE') > 100;
+
+
+
+
+17. Display department ID, year, and Number of employees
+joined.
+
+SELECT 
+   DISTINCT DEPARTMENT_ID,YEAR(HIRE_DATE),EMPLOYEE_ID
+FROM employees
+GROUP BY  DEPARTMENT_ID,
+EMPLOYEE_ID;
+
+
+
+18. Display departments where any manager is managing more
+than 5 employees.
+SELECT DEPARTMENT_ID,MANAGER_ID,COUNT(EMPLOYEE_ID)  employees FROM employees
+GROUP BY MANAGER_ID,DEPARTMENT_ID
+HAVING COUNT(EMPLOYEE_ID) > 5; 
+
+
+
+
+19. Display first name and date of first salary of the employees.
+
+->
+
+SELECT FIRST_NAME,
+ADDDATE(HIRE_DATE,INTERVAL 31 DAY) salary_date
+FROM 
+employees;
+
+20. Display first name and experience of the employees.
+--
+SELECT FIRST_NAME,HIRE_DATE DATEDIFF(expr1,year(HIRE_DATE))
+
+21. Display first name of employees who joined in 2001.
+SELECT FIRST_NAME,YEAR(HIRE_DATE) FROM employees
+WHERE YEAR(HIRE_DATE) > 1986;
+
+
+22. Display employees who joined in the current year.
+->
+ SELECT
+EMPLOYEE_ID 
+FROM employees
+WHERE HIRE_DATE = CURDATE();
+
+
+
+
+23. Display the number of days between system date and 1st
+January 2021.
+SELECT  DATEDIFF('2021-01-01',SYSDATE()) FROM DUAL;
+
+
+24. Display how many employees joined in each month of the
+current year.
+
+
+
+
+25. Display number of employees joined after 15th of the month.
+
+
+26. Display details of departments in which the maximum salary
+is more than 10000.
+->
+SELECT DEPARTMENT_ID,EMPLOYEE_ID,SALARY FROM employees
+WHERE  SALARY >10000
+GROUP BY EMPLOYEE_ID;
+
+27. Display details of departments managed by ‘Smith’.
+
+
+
+
+28. Display jobs into which employees joined in the current year.
+
+
+29. Display employees who did not do any job in the past.
+
+
+30. Display job title and average salary for employees who did a
+job in the past.
+
+select j.JOB_TITLE,AVG(e.SALARY)
+from employees e INNER JOIN job_history jh
+ON e.EMPLOYEE_ID=jh.EMPLOYEE_ID
+INNER JOIN jobs j
+ON e.JOB_ID=j.JOB_ID
+group by JOB_TITLE;
+
+
+31. Display details of manager who manages more than 5
+employees.
+
+select m.*,e.EMPLOYEE_ID 
+ from employees m INNER JOIN employees e 
+ ON m.MANAGER_ID = e.EMPLOYEE_ID
+ group by e.EMPLOYEE_ID;
+ having count(EMPLOYEE_ID)>5;
+
+
+
+32. Display the departments into which no employee joined in last
+two years.
+
+
+
+
+
+33. Display the details of departments in which the max salary is
+greater than 10000 for employees who did a job in the past.
+
+
+34. Display details of current job for employees who worked as IT
+Programmers in the past.
+
+
+
+35. Display third highest salary of all employees
+
+SELECT SALARY FROM employees
+ORDER BY SALARY DESC
+LIMIT 2,1; 
+
+36. Display details of the employees where commission
+percentage is null and salary in the range 5000 to 10000 and
+department is 30.
+->
+
+
+SELECT * FROM employees
+WHERE COMMISSION_PCT IS NULL AND SALARY BETWEEN 5000 AND 10000 AND DEPARTMENT_ID = 90;
+
+Note : To solve below queries use “spj” database
+
+J#   | Jname    | City   J tb
+
+P#   | Pname | Color | Weight | CITY  P tb
+
+S#   | Sname | Status | City   S tb
+
+
+ S#   | P#   | J#   | QTY   sp tb
+1. Display all the Part names starting with the letter ‘S’.
+
+SELECT * FROM P
+WHERE Pname LIKE "S%";
+
+
+2. Display all the Suppliers, belonging to cities starting with the
+letter ‘L’.
+
+
+SELECT Sname,City FROM S
+WHERE City LIKE "L%";
+
+
+3. Display all the Projects, with the third letter in JNAME as ‘n’.
+
+SELECT * FROM J
+WHERE Jname like "__n%";
+
+4. Display all the Supplier names with the initial letter capital.
+
+
+SELECT Sname FROM S
+WHERE SUBSTR(Sname,1,1) < 91;
+
+5. Display all the Supplier names in upper case.
+
+SELECT UPPER(Sname) FROM S;
+
+
+6. Display all the Supplier names in lower case.
+
+SELECT LOWER(Sname) FROM S;
+
+7. Display all the Supplier names padded to 25 characters, with
+spaces on the left.
+
+SELECT LPAD(Sname,25,' ') FROM S;
+
+8. Display all the Supplier names (with ‘la’ replaced by ‘ro’).
+HINT: REPLACE.
+
+SELECT Sname,REPLACE(Sname,'la','ro') "NEW NAMES" FROM S;
+
+
+
+9. Implement the above command such that ‘l’ is replaced with ‘r’
+and ‘a’ is replaced with ‘o’.
+
+SELECT Sname,REPLACE(Sname,"l","r"),REPLACE(Sname,"a","o") "NEW NAMES" FROM S;
+
+
+
+10. Display the Supplier names and the lengths of the names.
+
+select Sname, length(Sname) from S;
+
+
+11. Use the soundex function to search for a supplier by the name
+of ‘BLOKE’.
+SOUNDEX(str)
+
+Returns a soundex string from str. Two strings that sound almost the
+same should have identical soundex strings.
+
+SELECT SOUNDEX("BLOKE") FROM S;
+
+J#   | Jname    | City   J tb
+
+P#   | Pname | Color | Weight | CITY  P tb
+
+S#   | Sname | Status | City   S tb
+
+
+ S#   | P#   | J#   | QTY   sp tb
+
+
+
+
+12. Display the Supplier name and the status (as Ten, Twenty,
+Thirty, etc.).
+
+SELECT Sname,Status from S
+ORDER BY Status ASC;
+
+13. Display the current day (e.g. Thursday).
+    select SYSdate() from dual;
+
+14. Display the minimum Status in the Supplier table
+   SELECT MIN(Status) from S;
+  
+
+
+15. Display the maximum Weight in the Parts table.
+
+select MAX(Weight) from P;
+
+
+
+16. Display the average Weight of the Parts.
+
+select avg(Weight) from P;
+
+17. Display the total Quantity sold for part ‘P1’
+
+SELECT COUNT(Weight) FROM P 
+WHERE `P#` = 'P1';
+
+.
+18. Display the total Quantity sold for each part
+
+SELECT COUNT(Weight) FROM P;
+
+.
+19. Display the average Quantity sold for each part.
+
+SELECT AVG(Weight) FROM P;
+
+
+20. Display the maximum Quantity sold for each part, provided
+the maximum Quantity is greater than 800.
+-------
+
+
+
+21. Display the Status and the count of Suppliers with that Status.
+
+SELECT Status,count(Sname) FROM S
+group by Status
+ORDER BY Status;
+
+
+
+
+J#   | Jname    | City   J tb
+
+P#   | Pname | Color | Weight | CITY  P tb
+
+S#   | Sname | Status | City   S tb
+
+
+ S#   | P#   | J#   | QTY   sp tb
+
+
+22. Display the count of Projects going on in different cities.
+
+SELECT COUNT(Pname) from P
+GROUP BY CITY;
+
+
+
+23. What is the difference between COUNT(Status) and
+COUNT(*) ?
+
+SELECT COUNT(Status) FROM S;
+SELECT COUNT(*) FROM S;
+
+
+24. Display the Status and the Count of Suppliers with that Status
+in the following formatas shown below:-
+Status
+Count
+Ten
+1
+Twenty
+2
+Thirty
+3
+
+SELECT CHAR(Status),COUNT(Sname) FROM S
+GROUP BY Sname,Status;
+
+
+
+
+
+
+
+@@@@@@@@JOINS  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+
+
+
+Note : To solve below queries use “sales” database
+
+
+1. Write two different queries that would produce all orders taken
+on October 3 rd or 4 th , 1990.
+
+SELECT onum FROM  
+ORDERS
+WHERE odate = '1990-10-03';
+
+SELECT onum FROM  
+ORDERS
+WHERE odate = '1990-10-04';
+
+2. Write a query that selects all of the customers serviced by Peel
+or Motika. (Hint:the snum field relates the two tables to one
+another).
+->
+ SELECT c.cname,s.sname
+FROM CUSTOMERS c INNER JOIN SALESPEOPLE s
+ON c.snum = s.snum
+where s.snum = 1001 OR s.snum = 1004;
+
+ SELECT c.cname,s.sname
+FROM CUSTOMERS c INNER JOIN SALESPEOPLE s
+ON c.snum = s.snum
+where s.snum = 1001 OR s.snum = 1004;
+
+
+
+3. Write a query that will produce all the customers whose names
+begin with a letter from ‘A’ to ‘G’.
+
+
+SELECT cname 
+ FROM 
+CUSTOMERS
+ WHERE
+ cname BETWEEN 'L' AND 'Z';
+4. Write a query that selects all customers whose names begin
+with the letter ‘C’.
+
+  SELECT cname FROM 
+CUSTOMERS 
+WHERE cname LIKE 'C%';
+
+
+ 
+5. Write a query that selects all orders except those with zeroes or
+NULLs in the amt field.
+
+SELECT * FROM ORDERS
+WHERE amt > 0 OR amt = NULL;
+6. Write a query that counts all orders for October 3.
+
+SELECT COUNT(onum) FROM ORDERS
+WHERE odate = '1990-10-03';
+7. Write a query that counts the number of different non-NULL city
+values in the Customers table.
+
+SELECT COUNT(CITY) FROM CUSTOMERS
+WHERE CITY <> '0';
+
+
+8. Write a query that selects each customer’s smallest order.
+select onum,MIN(amt) 
+from ORDERS
+GROUP BY onum
+LIMIT 1;
+
+
+
+9. Write a query that selects the first customer, in alphabetical
+order, whose name begins with G.
+
+SELECT cname FROM CUSTOMERS
+WHERE cname BETWEEN 'G' AND 'Z';
+
+10. Write a query that selects the highest rating in each city.
+
+SELECT DISTINCT rating,city from CUSTOMERS
+ORDER BY rating DESC;
+
+
+11. Write a query that counts the number of salespeople
+registering orders for eachday. (If a salesperson has more than
+one order on a given day, he or she should be
+counted only once.)
+
+ 
+12. Assume each salesperson has a 12% commission. Write a
+query on the orders table that will produce the order number, the
+salesperson number, and the amount of the salesperson’s
+commission for that order.
+
+SELECT onum,snum,amt*.12 total_amt 
+FROM ORDERS;
+
+13. Write a query on the Customers table that will find the highest
+rating in each city. Put the output in this form:
+For the city (city), the highest rating is : (rating).
+
+SELECT city,rating FROM CUSTOMERS
+ORDER BY rating DESC
+LIMIT 1;
+
+
+
+14. Write a query that lists customers in descending order of
+rating. Output the rating field first, followed by the customer’s
+name and number.
+
+
+15. Write a query that totals the orders for each day and places
+the results in descending order.
+16. Write a query that uses a subquery to obtain all orders for the
+customer named Cisneros. Assume you do not know his customer
+number (cnum).
+17. Write a query that produces the names and ratings of all
+customers who have above-average orders.
+18. Write a query that selects the total amount in orders for each
+salesperson for whomthis total is greater than the amount of the
+largest order in the table.
+19. Write a query that selects all customers whose ratings are
+equal to or greater than ANY of Serres’.
+20. Write a query using ANY or ALL that will find all salespeople
+who have no customers located in their city.Sunbeam Institute Of Technology,Pune & Karad
+DATABASE TECHNOLOGY
+21. Write a query that selects all orders for amounts greater than
+any for the customers in London.
+22. Write the above query using MIN or MAX.
+23. Count the number of salespeople currently listing orders in the
+oreder table.
+24. Largest order taken by each salesperson with order value
+more than Rs.3000.
+25. Which day had the highest total amount ordered.
+26. Count all orders for Oct 3.
+27. Select each customer smallest order.
+28. First customer in alphabetical order whose name begin with G.
+29. Get the output like “For dd/mm/yy there are _____ orders”.
+30. Extract all the orders of Motika.
+31. All orders that are greater than the average for Oct 4.
+32. Find avarage commission of salespeople in London.
+33. Find all the order attribute to salespeople servicing customers
+in London.
+34. Obtain all orders for the customer named Cisnerous.(Assume
+you dont know his customer no. (cnum)).
+35. Find total amount in orders for each salesperson for whom this
+total is greater than the amount of the largest order in the table.Sunbeam Institute Of Technology,Pune & Karad
+DATABASE TECHNOLOGY
+36. Find names and numbers of all salesperson who have more
+than one customer.
+37. Extract cnum ,cname and city from customer table if and only
+if one or more of the customers in the table are located in San
+Jose.
+38. Find salespeople number who have multiple customers.
+39. Find salespeople number,name and city who have multiple
+customers.
+40. Find salespeople who serve only one customer.
+41. Extract rows of all the salespeople with more than one current
+order.
+42. Select customers who have a greater rating than any other
+customer in Rome.
+43. Select all orders that had amounts that were greater that
+atleast one of the orders fron Oct 6 th .
+44. Find all orders with amounts smaller than any amount for a
+customer in San Jose.(Both using ANY and without any).
+45. Select those customers whose rating are higher than every
+customer in Paris.
+46. Select all customers whose ratings are equal to or greater
+than any of the Serres.Sunbeam Institute Of Technology,Pune & Karad
+DATABASE TECHNOLOGY
+
+
+JO JAANO NAHI MUJHE , KOI PARVAA NAHI
+JO KAYAALO KO MERA JAANO TOH BAAT HO;;

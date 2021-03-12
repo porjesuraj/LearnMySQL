@@ -1,0 +1,466 @@
+DATABASE TECHNOLOGY
+Write the SELECT queries to do the following :-
+Note : To solve below queries use “ hr ” database
+1. Write a query to display the first _ name , last _ name using
+alias name “ First Name ", " Last Name ".
+
+SELECT first_name 'First Name',last_name 'Last Name'
+FROM employees;
+
+
+
+2. Write a query to get unique department ID from employee
+table .
+SELECT  EMPLOYEE_ID 
+FROM employees;
+
+3. Write a query to get all employee details from the employee
+
+table order by first name , descending .
+SELECT * FROM employees
+ORDER BY FIRST_NAME ASC;
+
+4. Write a query to get the names ( first _ name , last _ name ),
+salary , PF of all the employees ( PF is calculated as 15% of
+salary ).
+
+ALTER TABLE employees
+ADD PF DECIMAL(8,2);
+
+SELECT FIRST_NAME,LAST_NAME,SALARY,SALARY*0.15 PF
+FROM employees;
+
+
+5. Write a query to get the employee ID , names ( first _ name ,
+last _ name ), salary in ascending order of salary .
+
+SELECT 
+EMPLOYEE_ID,FIRST_NAME, LAST_NAME, SALARY  
+FROM 
+employees
+ORDER BY  SALARY;
+
+
+6. Write a query to get the total salaries payable to employees .
+
+SELECT SUM(SALARY) FROM employees;
+
+
+7. Write a query to get the maximum and minimum salary
+from employees table .
+SELECT MAX(salary) FROM employees;
+SELECT MIN(salary) FROM employees;
+
+8. Write a query to calculate 171*214+625.
+
+SELECT 171*214+625 FROM DUAL;
+
+9. Write a query to get the names ( for example Ellen Abel ,
+Sundar Ande etc .) of all the employees from employees table .
+
+SELECT CONCAT(FIRST_NAME,' ',LAST_NAME) names FROM employees;
+
+
+10. Write a query to select first 10 records from a employees
+table .
+SELECT * FROM employees
+LIMIT 10;
+
+
+11. Display first name and join date of the employees who is
+either IT Programmer or Sales Man .
+------joint
+
+12. Display details of employee with ID 150 or 160.
+
+SELECT * FROM employees
+WHERE EMPLOYEE_ID = 150 OR EMPLOYEE_ID = 160;
+
+13. Display first name , salary , commission pct , and hire date for
+employees with salary less than 10000.
+
+
+
+SELECT 
+FIRST_NAME,SALARY,COMMISSION_PCT,HIRE_DATE 
+FROM employees
+WHERE SALARY <10000;
+
+
+
+
+14. Display employees where the first name or last name starts
+with S .
+
+SELECT * FROM employees
+WHERE FIRST_NAME LIKE'S%' OR LAST_NAME LIKE 'S%';
+
+
+15. Display details of jobs in the descending order of the title .
+
+SELECT * FROM jobs
+ORDER BY JOB_TITLE DESC; 
+
+16. Display details of the employees where commission
+percentage is null and salary in the range 5000 to 10000 and
+department is 30.
+
+SELECT * FROM employees
+WHERE COMMISSION_PCT = 0 AND SALARY BETWEEN 5000 AND 10000 AND DEPARTMENT_ID = 30;
+
+
+SELECT * FROM employees
+WHERE COMMISSION_PCT = 0 AND SALARY BETWEEN 5000 AND 10000;
+
+
+17. Display employees first _ name , email who are working in
+“ Executive ” department .
+----
+18. Display unique contry _ id from locations table .
+---
+SELECT COUNTRY_ID FROM locations;
+
+19. Display all employees whoe have job _ id IT _ PROG and
+FI _ ACCOUNT .
+-----
+20. Display all countries in ascending order .
+--
+SELECT COUNTRY_NAME  FROM countries;
+
+
+Note : To solve below queries use “ spj ” database
+
+1. Display all the data from the S table .
+->
+
+SELECT * FROM S;
+
+2. Display only the S # and SNAME fields from the S table .
+
+SELECT `S#`,Sname FROM S;
+
+3. Display the PNAME and COLOR from the P table for the
+CITY = "London ”.
+
+SELECT Pname,Color FROM P
+WHERE CITY = "London";
+
+
+4. Display all the Suppliers from London .
+
+SELECT * FROM S
+WHERE CITY = "London";
+
+
+5. Display all the Suppliers from Paris or Athens .
+
+SELECT * FROM S
+WHERE CITY = "Paris" OR CITY = "Athens";
+
+
+6. Display all the Projects in Athens .
+
+SELECT * FROM P
+WHERE CITY = "Athens";
+
+
+7. Display all the Partnames with the weight between 12 and
+14 ( inclusive of both ).
+
+SELECT Pname FROM P
+WHERE Weight BETWEEN 12 AND 14;
+
+
+
+8. Display all the Suppliers with a Status greater than or equal
+to 20.
+
+SELECT * FROM S
+WHERE Status >= 20;
+
+
+9. Display all the Suppliers except the Suppliers from London .
+
+SELECT * FROM S
+WHERE CITY != "London";
+
+
+10. Display only the Cities from where the Suppliers come
+from 
+
+SELECT City FROM S;
+
+
+11. Assuming that the Part Weight is in GRAMS , display the
+same in
+MILLIGRAMS and KILOGRAMS .
+
+SELECT Weight,Weight*0.001 "weight in milli",Weight*1000 "weight in kilo" FROM P;
+
+
+
+12. Display the Supplier table in the descending order of CITY .
+
+SELECT * FROM S
+ORDER BY City DESC;
+
+13. Display the Part Table in the ascending order of CITY and
+within the city in the ascending order of Part names .
+
+SELECT * FROM P
+ORDER BY CITY ASC,Pname ASC;
+
+
+14. Display all the Suppliers with a status between 10 and 20.
+
+SELECT * FROM S
+WHERE Status BETWEEN 10 AND 20;
+
+
+15. Display all the Parts and their Weight , which are not in the
+range of 10 and
+
+SELECT `P#`,Weight FROM P
+WHERE Weight BETWEEN 10 AND 15;
+
+Note : To solve below queries use “ northwind ” database
+
+-----------------------------------------------------------
+1. Write a query to get Product name and quantity / unit
+---
+SELECT ProductName,UnitsInStock FROM Products;
+
+2. Write a query to get current Product list ( Product ID and
+name )
+----
+SELECT ProductID,ProductName from Products;
+
+3. Write a query to get Product list ( id , name , unit price )
+where current products cost less than $ 20.
+---
+
+SELECT ProductID,ProductName,UnitPrice  from Products
+WHERE 
+
+---
+4. Write a query to get Product list ( id , name , unit price )
+where products cost between $ 15 and $ 25.
+---
+
+5. Write a query to get Product list ( name , unit price ) of above
+average price .
+---
+6. Write a query to get CategoryName and Description from
+the Categories table .
+--
+SELECT CategoryName,Description FROM Categories;
+
+-
+7. Write a query to get ContactName , CompanyName ,
+ContactTitle and Phone from the Customers table .
+----
+SELECT ContactName,CompanyName,
+ContactTitle,Phone FROM Customers;
+
+8. Write a query to get EmployeeID , Title , FirstName , LastName ,
+and Region from the Employees table .
+---
+SELECT EmployeeID,Title,FirstName,LastName,Region FROM Employees; 
+---
+
+9. Write a query to get RegionID and RegionDescription from
+the Region table 
+----
+SELECT RegionID,RegionDescription FROM Region;
+
+---
+10. Write a query to get CompanyName , Fax , Phone and
+HomePage from the Suppliers table .
+-----
+SELECT CompanyName,Fax,Phone,HomePage FROM Suppliers;
+----
+
+11. Write a query to get CategoryName and Description from
+the Categories table sorted by CategoryName .
+
+SELECT CategoryName,Description FROM Categories
+ORDER BY CategoryName;
+12. Write a query to get ContactName , CompanyName ,
+ContactTitle , and Phone from the Customers table sorted by
+Phone .
+
+SELECT ContactName,CompanyName,ContactTitle,Phone FROM Customers
+ORDER BY Phone;
+
+13. Create a report showing employees' first and last names
+and hire dates sorted from newest to oldest employee .
+----
+SELECT FirstName,LastName,HireDate FROM Employees 
+ORDER BY HireDate DESC;
+
+
+----
+
+14. Create a report showing Northwind's orders sorted by
+Freight from most expensive to cheapest . Show OrderID ,
+OrderDate , ShippedDate , CustomerID , and Freight .
+
+SELECT OrderID,OrderDate,ShippedDate,CustomerID,Freight FROM  Orders
+ORDER BY Freight DESC;
+
+
+15. Write a query to get CompanyName , Fax , Phone ,
+HomePage and Country from the Suppliers table sorted by
+Country in descending order and then by CompanyName in
+ascending order .
+----
+SELECT
+ CompanyName,Fax,Phone,
+HomePage,Country 
+FROM 
+Suppliers
+ORDER BY Country DESC,CompanyName;
+----
+
+
+
+16. Create a list of employees showing title , first name , and
+last name . Sort by Title in ascending order and then by
+LastName in descending order .
+
+SELECT Title,FirstName,LastName FROM Employees
+ORDER BY Title,LastName DESC;
+
+SELECT Title,FirstName,LastName FROM Employees
+ORDER BY LastName DESC;
+
+17. Create a report showing all the company names and
+contact names of Northwind's customers in Buenos Aires .
+----
+SELECT CompanyName,ContactName FROM Customers
+WHERE CITY = 'Buenos Aires';
+
+18. Create a report showing the product name , unit price and
+quantity per unit of all products that are out of stock .
+
+SELECT ProductName,UnitPrice,QuantityPerUnit FROM Products
+WHERE  UnitsInStock ='0';
+
+
+
+19. Create a report showing the order date , shipped date ,
+customer id , and freight of all orders placed on May 19, 1997.
+
+SELECT 
+OrderDate,ShippedDate,CustomerID,Freight 
+FROM 
+ Orders
+WHERE
+OrderDate ='1997-05-19';
+
+
+20. Create a report that shows the company name , contact
+name and fax number of all customers that have a fax number .
+
+----
+SELECT CompanyName,ContactName,Fax 
+FROM 
+Customers
+WHERE NOT FAX ='NULL'; 
+
+
+21. Create a report that shows the first and last name of all
+employees who do not report to anybody .
+----
+SELECT 
+FirstName,LastName
+ FROM 
+Employees
+WHERE 
+ReportsTo = '0';
+
+--------------------------------------------------------------------------------------------------------------------------
+Note : To solve below queries use “ sales ” database
+1. Which field of the Customers table is the primary key ?
+
+2. What is the 4 th column of the Customers table ?
+ ContactTitle
+
+3. What is another word for row ? For column ?
+TUPEL,OPPORTUNITY,  COLUMN- 
+
+4. Why isn ’ t it possible to see the first five rows of a table ?
+
+--
+5. Write a select command that produces the order number ,
+amount , and date forall rows in the Orders table .
+----
+SELECT OrderID, Freight,OrderDate FROM Orders; 
+
+
+6. Write a query that produces all rows from the Customers
+table for which the salesperson ’ s number is 1001.
+
+---
+
+SELECT * from Customers
+where 
+
+
+
+7. Write a query that displays the Salespeople table with the
+columns in the following order : city , sname , snum , comm .
+
+----
+
+8. Write a select command that produces the rating followed
+by the name of each customer in San Jose .
+
+----
+9. Write a query that will produce the snum values of all
+salespeople from the Orders table ( with the duplicate values
+suppressed ).
+----
+
+10. Write a query that will give you all orders for more than
+Rs . 1,000.
+----
+
+11. Write a query that will give you the names and cities of all
+salespeople in London with a commission above 0.10.
+----
+
+
+12. Write a query on the Customers table whose output will
+exclude all customers with a rating <= 100, unless they are
+located in Rome .
+
+
+----
+13. What will be the output from the following query ?
+Select * from Orders
+where ( amt < 1000 OR
+NOT ( odate = ‘1990-10-03’
+AND cnum > 2003));
+
+------
+
+14. What will be the output of the following query ?
+Select * from Orders
+where NOT (( odate = ‘1990-10-03’ OR snum >1006) AND amt
+>= 1500);
+
+-----
+15. What is a simpler way to write this query ?
+Select snum , sname , city , comm from Salespeople
+Where ( comm > .12 or comm < .14);
+
+---------
+16. Write a query that selects all of the customers serviced by
+Peel or Motika .
+( Hint : the snum field relates the two tables to one another ).Sunbeam Institute Of Technology,Pune & Karad
+DATABASE TECHNOLOGY
+------
+
+17. Write a query that selects all orders except those with
+zeroes or NULLs in the amt field .

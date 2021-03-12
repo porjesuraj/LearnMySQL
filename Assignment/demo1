@@ -1,0 +1,145 @@
+git clone http://172.18.011/dac/dbt
+
+
+//my sql 
+mysql -u root -p
+1
+SELECT USER() FROM DUAL;
+2
+CURRENT_USER();
+3
+mysql> CREATE USER 'dac'@'localhost'
+    -> IDENTIFIED BY
+    -> 'dac';
+
+SHOW DATEBASE;//
+
+4
+SHOW GRANTS FOR 'dac'@'localhost';
+
+5
+GRANT ALL PRIVILEGES ON *.* TO 'dac'@'localhost'; 
+6
+FLUSH PRIVILEGES;
+
+7
+ mysql -u dac -p
+8
+SELECT USER();
+9
+SHOW DATABASES;
+10
+CREATE DATABASE db_dac;
+11
+ SELECT DATABASE();
+12
+USE db_dac;
+13
+SHOW TABLES;
+
+14
+CREATE TABLE dacfile
+(
+id INT,
+name VARCHAR(50),
+author VARCHAR(50),
+subject VARCHAR(50),
+price FLOAT
+);
+15
+USE bd_dac;
+16
+RENAME TABLE dacfile TO dac1;
+17
+ALTER TABLE dac1
+RENAME COLUMN id TO book_id;
+18
+ALTER TABLE dac1
+MODIFY name VARCHAR(100);
+19
+ALTER TABLE dac1
+ADD Column book_store VARCHAR(50); 
+20
+ALTER TABLE dac1
+DROP column name;
+21
+insert record in table
+
+INSERT INTO dac1
+( book,author, subject, price,book_store )
+VALUES
+( 1,'Yashwant Kanetkar', 'C', 450,'pune' );
+
+22MULTIPLE INSERTS
+
+
+INSERT INTO dac1
+VALUES
+( 2,'LINUS', 'LINUX',450,'pune'),
+( 3,'E.F.CODD','RDBMS',450,'pune'),
+( 4,'WINDIUS','MY SQL',450,'pune');
+
+23 copy 1 tab to 2nd tab
+CREATE TABLE new_books
+AS (SELECT * FROM dac1);
+
+24
+CREATE TABLE structonly
+LIKE dac1;
+
+24
+to view record
+SELECT * FROM new_books;
+
+
+25 insert from dac table
+
+INSERT INTO structonly
+VALUES
+ ( SELECT *FROM new_books );// to check 
+
+26 import sql file
+ SOURCE /home/sunbeam/classwork_data/dbt/Day 2/classwork-db.sql;
+ USE classwork;
+27
+SELECT 
+    -> book,author,price
+    -> from
+    -> dac1;
+28
+SELECT DISTINCT
+author
+FROM
+dac1;
+
+29
+SELECT 
+* 
+FROM dac1
+LIMIT 2;
+
+30
+SELECT 
+* 
+FROM dac1
+LIMIT 1,3;
+
+
+31
+SELECT * FROM dac1
+ORDER BY book desc,author asc;
+
+32
+DROP TABLE structonly;
+33
+TRUNCATE TABLE books;
+
+
+
+
+
+
+
+
+
+SELECT DATABASE() FROM DUAL;

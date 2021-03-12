@@ -1,0 +1,21 @@
+Sunbeam Institute Of Technology,Pune and Karad
+DATABASE TECHNOLOGY
+1. View list of available databases
+2. Create a new database named CDAC and connect to it
+3. View list of available collections in CDAC database.
+4. Create a new collection by the name of LIBRARY
+5. Insert the following document in the LIBRARY collection:-
+title:'MongoDB programming', author:'Dac', likes:100.
+6. View the recently inserted document and note the _id field
+7. Insert another document in the LIBRARY collection as follows:-
+title:'MySQL programming', authors:['Jack','Jill'], likes:200.
+8. View the inserted documents.
+9. View only the first inserted document.
+10. View the documents using the pretty() method.
+11. Update the document where author name = Dac and change it to
+Dac Pune.
+12. Delete all documents that have 100 likes.
+13. Drop the LIBRARY collectionSunbeam Institute Of Technology,Pune and Karad
+DATABASE TECHNOLOGY
+14. Drop the CDAC database.
+15. Exit from MongoDB shell.
